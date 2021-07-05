@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+
 import dao.Patient;
 
 public class PatientModel {
@@ -58,6 +60,34 @@ public class PatientModel {
 			throw e;
 		}
 		return flag;
+	}
+	
+	public JSONArray loadPatientMedicineList(Connection connection, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		JSONArray medJSONArray = null;
+		try {
+			Patient pat = new Patient();
+			medJSONArray = pat.patientMedicineListDBCall(connection, request, response);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+		return medJSONArray;
+	}
+	
+	public JSONArray fetchPatientMedicineIDRecord(Connection connection, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		JSONArray medJSONArray = null;
+		try {
+			Patient pat = new Patient();
+			medJSONArray = pat.fetchPatientMedicineIDRecordDBCall(connection, request, response);
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			throw e;
+		}
+		return medJSONArray;
 	}
 
 }
