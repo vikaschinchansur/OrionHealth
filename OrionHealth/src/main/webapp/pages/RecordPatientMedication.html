@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Orion Health</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="../css/RecordPatientMedication.css" />
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js" integrity="sha256-u7e5khyithlIdTpu22PHhENmPcRdFiHRjhAuHcs05RI=" crossorigin="anonymous"></script> -->
+	<script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="../js/RecordPatientMedication.js"></script>
+</head>
+<body>
+
+<!-- START :  Bootstrap container  -->
+<div class="container">
+  <h1>PATIENT MEDICATION RECORD</h1>
+	
+	<div id="ajaxResponse" style="color:red;"></div>
+	
+	<form id="myAjaxRequestForm">
+	  <div class="form-group">
+	    <label for="formControlInput1">Medicine Name</label>
+	    <input type="text" class="form-control" id="formControlInput1" placeholder="medicine_name X mg/ml Tab/syrup">
+	  </div>
+	  
+	  <div class="form-row">
+		  <div class="form-group col-md-10">
+		    <label for="formControlInputUnits">Dose</label>
+		    <input type="text" class="form-control" id="formControlInputUnits" placeholder="number of units">
+		  </div>
+		  
+		  <div class="form-group col-md-2">
+		    <label for="formControlSelect1">Unit</label>
+		    <select class="form-control" id="formControlSelect1">
+		      <option selected>tablets</option>
+		      <option>mL</option>
+		    </select>
+		  </div>
+		</div>
+		
+		<div class="form-group row">
+				<div class="col-12">
+				      <table class="table table-striped table-bordered" id="medicationTable">
+						  <thead class="thead-dark">
+						    <tr>
+						      <th scope="col">Medication</th>
+						      <th scope="col">Breakfast</th>
+						      <th scope="col">Lunch</th>
+						      <th scope="col">Dinner</th>
+						      <th scope="col">Bed Time</th>
+						    </tr>
+						  </thead>
+						  <tbody>
+						    <tr>
+						      <th scope="row">Monday</th>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="monCheck1">
+					            	<label class="custom-control-label" for="monCheck1"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="monCheck2">
+					            	<label class="custom-control-label" for="monCheck2"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="monCheck3">
+					            	<label class="custom-control-label" for="monCheck3"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="monCheck4">
+					            	<label class="custom-control-label" for="monCheck4"></label>
+					            </div>
+					          </td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Tuesday</th>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="tueCheck1">
+					            	<label class="custom-control-label" for="tueCheck1"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="tueCheck2">
+					            	<label class="custom-control-label" for="tueCheck2"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="tueCheck3">
+					            	<label class="custom-control-label" for="tueCheck3"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="tueCheck4">
+					            	<label class="custom-control-label" for="tueCheck4"></label>
+					            </div>
+					          </td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Wednesday</th>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="wedCheck1">
+					            	<label class="custom-control-label" for="wedCheck1"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="wedCheck2">
+					            	<label class="custom-control-label" for="wedCheck2"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="wedCheck3">
+					            	<label class="custom-control-label" for="wedCheck3"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="wedCheck4">
+					            	<label class="custom-control-label" for="wedCheck4"></label>
+					            </div>
+					          </td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Thursday</th>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="thuCheck1">
+					            	<label class="custom-control-label" for="thuCheck1"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="thuCheck2">
+					            	<label class="custom-control-label" for="thuCheck2"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="thuCheck3">
+					            	<label class="custom-control-label" for="thuCheck3"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="thuCheck4">
+					            	<label class="custom-control-label" for="thuCheck4"></label>
+					            </div>
+					          </td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Friday</th>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="friCheck1">
+					            	<label class="custom-control-label" for="friCheck1"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="friCheck2">
+					            	<label class="custom-control-label" for="friCheck2"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="friCheck3">
+					            	<label class="custom-control-label" for="friCheck3"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="friCheck4">
+					            	<label class="custom-control-label" for="friCheck4"></label>
+					            </div>
+					          </td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Saturday</th>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="satCheck1">
+					            	<label class="custom-control-label" for="satCheck1"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="satCheck2">
+					            	<label class="custom-control-label" for="satCheck2"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="satCheck3">
+					            	<label class="custom-control-label" for="satCheck3"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="satCheck4">
+					            	<label class="custom-control-label" for="satCheck4"></label>
+					            </div>
+					          </td>
+						    </tr>
+						    
+						    <tr>
+						      <th scope="row">Sunday</th>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="sunCheck1">
+					            	<label class="custom-control-label" for="sunCheck1"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="sunCheck2">
+					            	<label class="custom-control-label" for="sunCheck2"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="sunCheck3">
+					            	<label class="custom-control-label" for="sunCheck3"></label>
+					            </div>
+					          </td>
+						      <td>
+					          	<div class="custom-control custom-checkbox">
+					            	<input type="checkbox" class="custom-control-input" id="sunCheck4">
+					            	<label class="custom-control-label" for="sunCheck4"></label>
+					            </div>
+					          </td>
+						    </tr>
+						    
+						  </tbody>
+						</table>
+				    </div>
+		  	</div>
+		  
+		  <button type="button" class="btn btn-primary btn-lg text-center" id="addBtn">Add</button>
+		  <br><br>
+		  
+	</form>
+	
+	<div id="ajaxResponse"></div>
+    
+</div>
+<!-- END :  Bootstrap container  -->  
+</body>
+</html>
