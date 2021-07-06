@@ -13,24 +13,20 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-
 import dao.Database;
 import model.PatientModel;
 
 /**
- * Servlet implementation class RecordPatientMedication
+ * Servlet implementation class PatientMedicineList
  */
-@WebServlet("/RecordPatientMedication")
-public class RecordPatientMedication extends HttpServlet {
+@WebServlet("/PatientMedicineList")
+public class PatientMedicineList extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecordPatientMedication() {
+    public PatientMedicineList() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +36,6 @@ public class RecordPatientMedication extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(">>>>> GET request received");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -60,7 +55,7 @@ public class RecordPatientMedication extends HttpServlet {
 			database = new Database();
 			pm = new PatientModel();
 			connection = database.getConnection();
-			String flag = pm.recordPatientMedication(connection, request, response);
+			JSONArray medJSONArray = pm.loadPatientMedicineList(connection, request, response);
 			out = response.getWriter();
 	        response.setContentType("application/json");
 	        response.setHeader("Cache-control", "no-cache, no-store");
@@ -71,15 +66,7 @@ public class RecordPatientMedication extends HttpServlet {
 	        response.setHeader("Access-Control-Allow-Methods", "POST");
 	        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 	        response.setHeader("Access-Control-Max-Age", "86400");
-	         
-	        JSONArray array = new JSONArray();
-	        JSONObject medicine = new JSONObject();
-	        medicine.put("flag", flag);
-	        medicine.put("name", request.getParameter("medicineName"));
-	        medicine.put("dose", request.getParameter("dose"));
-	        array.put(medicine);
-	        out.write(array.toString());
-			
+	        out.write(medJSONArray.toString());
 		}
 		catch (Exception ex)
 		{
@@ -87,6 +74,7 @@ public class RecordPatientMedication extends HttpServlet {
 		}
 		finally
 		{
+			
 			if(out!=null) {
 				out.close();
 			}

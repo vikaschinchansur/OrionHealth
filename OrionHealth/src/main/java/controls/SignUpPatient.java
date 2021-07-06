@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import dao.Database;
 import model.PatientModel;
 
@@ -43,37 +46,46 @@ public class SignUpPatient extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(">>>>> POST request received");
 		//doGet(request, response);
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
+		
 		Connection connection = null;
 		Database database = null;
 		PatientModel pm = null;
+		PrintWriter out = null;
+		JSONArray jsonArray = null;
+		
 		try {
+			
 			database = new Database();
 			pm = new PatientModel();
 			connection = database.getConnection();
-			System.out.println("Connection=="+connection);
-			String flag = pm.insertPatientDetails(connection, request, response);
-			if(flag!=null) {
-				out.println(flag);
-			}
-			
+			jsonArray = pm.insertPatientDetails(connection, request, response);
+			out = response.getWriter();
+	        response.setContentType("application/json");
+	        response.setHeader("Cache-control", "no-cache, no-store");
+	        response.setHeader("Pragma", "no-cache");
+	        response.setHeader("Expires", "-1");
+	
+	        response.setHeader("Access-Control-Allow-Origin", "*");
+	        response.setHeader("Access-Control-Allow-Methods", "POST");
+	        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+	        response.setHeader("Access-Control-Max-Age", "86400");
+
+	        out.write(jsonArray.toString());
 		}
 		catch (Exception ex)
 		{
-			out.println("Exception: " + ex.getMessage());
+			System.out.println("Exception: " + ex.getMessage());
 		}
 		finally
 		{
-			out.close();
+			if(out!=null) {
+				out.close();
+			}
 			if (connection!=null) {
 				database.closeConnection(connection);
 			}
 		}
-		
-		
 	}
 
 }
