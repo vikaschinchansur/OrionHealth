@@ -8,11 +8,9 @@ public class Database
 {
 	public Connection getConnection() throws Exception
 	{
-		System.out.println("Inside getConnection CLASSS");
 		try
 		{
 			Connection connection=null;
-			//Class.forName("com.mysql.jdbc.Driver");  
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
 			connection=DriverManager.getConnection(  "jdbc:mysql://aakbc97u7fj9gp.ctliairk4adk.ap-southeast-2.rds.amazonaws.com:3306/ebdb","DBUser","DBPassword");
 			return connection;

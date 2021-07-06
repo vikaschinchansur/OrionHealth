@@ -11,26 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import dao.Database;
 import model.PatientModel;
 
 /**
- * Servlet implementation class RecordPatientMedication
+ * Servlet implementation class LoginPatient
  */
-@WebServlet("/RecordPatientMedication")
-public class RecordPatientMedication extends HttpServlet {
+@WebServlet("/LoginPatient")
+public class LoginPatient extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RecordPatientMedication() {
+    public LoginPatient() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +35,6 @@ public class RecordPatientMedication extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println(">>>>> GET request received");
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -55,31 +49,23 @@ public class RecordPatientMedication extends HttpServlet {
 		Database database = null;
 		PatientModel pm = null;
 		PrintWriter out = null;
+		JSONArray jsonArray = null;
 		
 		try {
 			database = new Database();
 			pm = new PatientModel();
 			connection = database.getConnection();
-			String flag = pm.recordPatientMedication(connection, request, response);
+			jsonArray = pm.loginPatient(connection, request, response);
 			out = response.getWriter();
 	        response.setContentType("application/json");
 	        response.setHeader("Cache-control", "no-cache, no-store");
 	        response.setHeader("Pragma", "no-cache");
 	        response.setHeader("Expires", "-1");
-	 
 	        response.setHeader("Access-Control-Allow-Origin", "*");
 	        response.setHeader("Access-Control-Allow-Methods", "POST");
 	        response.setHeader("Access-Control-Allow-Headers", "Content-Type");
 	        response.setHeader("Access-Control-Max-Age", "86400");
-	         
-	        JSONArray array = new JSONArray();
-	        JSONObject medicine = new JSONObject();
-	        medicine.put("flag", flag);
-	        medicine.put("name", request.getParameter("medicineName"));
-	        medicine.put("dose", request.getParameter("dose"));
-	        array.put(medicine);
-	        out.write(array.toString());
-			
+	        out.write(jsonArray.toString());
 		}
 		catch (Exception ex)
 		{
